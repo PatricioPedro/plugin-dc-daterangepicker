@@ -4,7 +4,7 @@
     "description": "Description of your jQuery plugin",
     "main": "daterangepicker.js",
     "keywords": ["jquery", "jquery-plugin", "ecosystem:jquery"],
-    "author": "Your Name",
+    "author": "Patricio Pedro",
     "license": "MIT",
     "repository": {
         "type": "git",
