@@ -33,6 +33,7 @@
 
         //default settings for options
         this.parentEl = 'body';
+        this.messageDataTitle=false
         this.element = $(element);
         this.startDate = moment().startOf('day');
         this.endDate = moment().endOf('day');
@@ -165,6 +166,9 @@
         if (typeof options.startDate === 'string')
             this.startDate = moment(options.startDate, this.locale.format);
 
+        if (typeof options.messageDataTitle === 'string')
+            this.messageDataTitle = options.messageDataTitle;
+        
         if (typeof options.endDate === 'string')
             this.endDate = moment(options.endDate, this.locale.format);
 
@@ -205,6 +209,8 @@
 
         if (typeof options.cancelClass === 'string') //backwards compat
             this.cancelButtonClasses = options.cancelClass;
+        
+
 
         if (typeof options.maxSpan === 'object')
             this.maxSpan = options.maxSpan;
@@ -1289,7 +1295,7 @@
 
     
 
-            updateMessageAPIrange(e)
+            updateMessageAPIrange(e, this.messageDataTitle)
 
 
         },
@@ -1587,18 +1593,19 @@
 
 
 
-function updateMessageAPIrange (e) {
-    if ($(e.target).hasClass("disabled")) {
-        $('.drp-calendar .calendar-table').removeAttr('data-title')
-    } else {
-        if ($(e.target).hasClass("off")) {
-            const mensagemAPiRange = `O extrato da Directcall exibe chamadas feitas em períodos de até um mês.
-        Você pode acessar extratos de até seis meses pelas nossas REST APIs, desde que cada filtro solicite um período de até 31 dias.
-        `
-            $('.drp-calendar .calendar-table').attr('data-title', mensagemAPiRange)
+function updateMessageAPIrange (e, message) {
+    if (message) {
 
-        } else {
+        if ($(e.target).hasClass("disabled")) {
             $('.drp-calendar .calendar-table').removeAttr('data-title')
+        } else {
+            if ($(e.target).hasClass("off")) {
+                const mensagemAPiRange = `${message}`
+                $('.drp-calendar .calendar-table').attr('data-title', mensagemAPiRange)
+    
+            } else {
+                $('.drp-calendar .calendar-table').removeAttr('data-title')
+            }
         }
     }
 
